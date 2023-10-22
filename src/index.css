@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Regular.woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Medium.woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Bold.woff");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-DemiBold.woff");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Black.woff");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Light.woff");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-UltraLight.woff");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "iranyekan";
+  src: url("../src/assets/fonts/IRANYekanXFaNum-Thin.woff");
+  font-weight: 100;
+}
+
+* {
+  font-family: "iranyekan" !important;
+}
