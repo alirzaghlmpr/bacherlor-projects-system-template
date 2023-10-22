@@ -8,7 +8,7 @@ import checkEmptyOrNull from "../../../utils/checkEmptyOrNull";
 import BounceLoader from "react-spinners/BounceLoader";
 
 const LoginForm = () => {
-  const [status, setPageStatus] = useState(false);
+  const [status, setPageStatus] = useState(true);
   const [inputErrors, setInputErrors] = useState({
     username: false,
     password: false,
@@ -34,7 +34,9 @@ const LoginForm = () => {
           سامانه اخذ پروژه کارشناسی
         </h1>
 
-        <form onSubmit={handleFormSubmit} className="flex w-[50%] flex-col gap-10">
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex w-[50%] flex-col gap-10">
           <div>
             <label
               htmlFor={LoginFormField.Username.key}
@@ -86,14 +88,14 @@ const LoginForm = () => {
             )}
           </div>
           <button
-            className={`bg-slate-50 border-none outline-none rounded-lg items-center flex justify-center w-[100%] p-2 gap-5`}>
+            className={`bg-slate-50 border-none outline-none rounded-lg items-center flex justify-center w-[100%] p-2 gap-2 text-sm`}>
             <span>{status ? "درحال ورود" : "ورود"}</span>
             {status ? <BounceLoader size="20" /> : ""}
           </button>
         </form>
       </div>
       <div className="bg-gray-50 flex items-center justify-center md:order-2 order-1">
-        <img src={LOGO} className="w-[40%]" alt="" />
+        <img src={LOGO} className="md:w-[40%] w-[25%]" alt="" />
       </div>
     </LoginLayout>
   );
