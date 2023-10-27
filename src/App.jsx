@@ -1,10 +1,7 @@
-import ProjectsTableHeaders from "./constants/ProjectsTableHeaders";
-import TableMockData from "./mocks/TableMockData";
-import LoginForm from "./components/templates/LoginForm";
-import Table from "./components/shared/Table";
-
+import Root from "./routes/Root";
+import UserDashboard from "./routes/UserDashboard";
 const App = () => {
-  return <Table headers={ProjectsTableHeaders} data={TableMockData} />;
+  return <UserDashboard />;
 };
 
 export default App;
