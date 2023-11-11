@@ -28,7 +28,7 @@ const ProjectTableFiltersForm = ({ submitHandeler }) => {
   return (
     <form
       onSubmit={submitHandeler}
-      className="flex flex-col items-start md:items-center  gap-5 my-3 md:px-0 px-2">
+      className="flex flex-col items-start md:items-center  gap-5 my-5 md:px-0 px-2">
       <div className="flex items-center gap-8">
         <div className="flex">
           {FormRadioFiltersKeys.map((key) => (

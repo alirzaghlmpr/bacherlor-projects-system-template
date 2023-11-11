@@ -8,7 +8,12 @@ import { NumberFilterName } from "../constants/ProjectsNumberFilter";
 import { SelectOptionName } from "../constants/ProjectsSelectOptions";
 
 import ProjectTableFiltersForm from "../components/templates/ProjectTableFiltersForm";
+import Header from "../components/templates/Header";
+import SupervisorNavbar from "../constants/SupervisorNavbar";
+import StudentNavbar from "../constants/StudentNavbar";
 
+import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
+import Announcements from "../components/templates/Announcements";
 const UserDashboard = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +29,8 @@ const UserDashboard = () => {
   };
   return (
     <>
+      <Header navbar={StudentNavbar} />
+      <Announcements projectInfo={StudentMockProjectInfo} />
       <ProjectTableFiltersForm submitHandeler={handleFormSubmit} />
       <ProjectsTable
         info={{ headers: ProjectsTableHeaders, data: TableMockData }}
