@@ -1,25 +1,12 @@
-import Logout from "../../shared/Logout";
+import Desktop from "./Desktop";
+import Mobile from "./Mobile";
+
+import useScreenSize from "../../../hooks/useScreenSize";
+
 const Header = ({ navbar }) => {
-  return (
-    <div className="flex justify-around items-center p-3 bg-slate-100 text-sm">
-      <div className="flex gap-5">
-        <p>علیرضا غلامپور</p>
-        <p>3981231076</p>
-      </div>
+  const { width } = useScreenSize();
 
-      <div>
-        <ul className="list-none flex gap-5">
-          {navbar.map(({ text, id }) => (
-            <li className="cursor-pointer" key={id}>
-              {text}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <Logout />
-    </div>
-  );
+  return width > 780 ? <Desktop navbar={navbar} /> : <Mobile navbar={navbar} />;
 };
 
 export default Header;
