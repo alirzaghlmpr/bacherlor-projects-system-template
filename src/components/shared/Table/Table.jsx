@@ -1,5 +1,8 @@
 import createTdFromObject from "../../../utils/createTdFromObject";
 import TableLayout from "../../layouts/TableLayout/TableLayout";
+import Modal from "../Modal";
+import ProjectStatus from "../../../constants/ProjectStatus";
+
 const Table = ({ headers, data }) => {
   return (
     <TableLayout>
@@ -20,7 +23,7 @@ const Table = ({ headers, data }) => {
               className={`border-b dark:border-neutral-500 text-center ${
                 index % 2 === 1 ? "bg-slate-100" : ""
               }`}>
-              {createTdFromObject(item, index)}
+              {createTdFromObject(item, index, "status", ProjectStatus.free)}
             </tr>
           ))}
         </tbody>

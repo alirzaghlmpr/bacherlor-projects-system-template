@@ -14,6 +14,8 @@ import StudentNavbar from "../constants/StudentNavbar";
 
 import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
 import Announcements from "../components/templates/Announcements";
+import Modal from "../components/shared/Modal";
+import ConfirmProjectModal from "../constants/ConfirmProjectModal";
 const UserDashboard = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,11 @@ const UserDashboard = () => {
       <ProjectsTable
         info={{ headers: ProjectsTableHeaders, data: TableMockData }}
       />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 };
