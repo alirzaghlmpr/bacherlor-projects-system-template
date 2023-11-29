@@ -9,6 +9,8 @@ export default function Modal({
   header,
   content,
   buttonClassName = null,
+  acceptHandeler = null,
+  id = null,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -51,6 +53,10 @@ export default function Modal({
           </button>
           <button
             className="text-sm px-2 py-1 text-white rounded-lg mx-3 bg-slate-500"
+            onClick={() => {
+              handleClose();
+              acceptHandeler(id || "");
+            }}
             autoFocus>
             تایید
           </button>

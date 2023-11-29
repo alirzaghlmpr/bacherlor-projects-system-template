@@ -4,6 +4,7 @@ export const ProjectsTableHeaders = [
   "استاد",
   "تعداد افراد",
   "وضعیت",
+  "شناسه",
 ];
 
 export default ProjectsTableHeaders;

@@ -1,30 +1,31 @@
-import Modal from "../components/shared/Modal";
-import ConfirmProjectModal from "../constants/ConfirmProjectModal";
 export const createTdFromObject = (
   object,
   index,
-  speceficKey,
-  speceficValue,
+  speceficKey = null,
+  speceficValue = null,
+  speceficComponent,
   className = "whitespace-nowrap px-6 py-4"
 ) => {
-  let datas = [<td className={className}>{index + 1}</td>];
+  let datas = [<td className={`${className} font-bold`}>{index + 1}</td>];
+  for (const key in object)
+    if (key === speceficKey && object[key] === speceficValue)
+      datas.push(
+        <td className={className}>
+          {object[key] && (
+            <>
+              {object[key]}
+              <br />
+            </>
+          )}
+          <p
+            data-id={object?.id}
+            className="flex justify-center items-center gap-5 mt-2">
+            {speceficComponent}
+          </p>
+        </td>
+      );
+    else datas.push(<td className={className}>{object[key]}</td>);
 
-  for (const key in object) {
-    if (key !== "id") {
-      if (key === speceficKey && object[key] === speceficValue)
-        datas.push(
-          <td className={className}>
-            {object[key]} <br />{" "}
-            <Modal
-              buttonContent={"اخذ پروژه"}
-              header={ConfirmProjectModal?.header}
-              content={ConfirmProjectModal?.content}
-            />
-          </td>
-        );
-      else datas.push(<td className={className}>{object[key]}</td>);
-    }
-  }
   return datas;
 };
 

@@ -2,8 +2,8 @@ import createTdFromObject from "../../../utils/createTdFromObject";
 import TableLayout from "../../layouts/TableLayout/TableLayout";
 import Modal from "../Modal";
 import ProjectStatus from "../../../constants/ProjectStatus";
-
-const Table = ({ headers, data }) => {
+import ConfirmProjectModal from "../../../constants/ConfirmProjectModal";
+const Table = ({ headers, data, handleModalAccept }) => {
   return (
     <TableLayout>
       <table className="min-w-full text-sm font-light">
@@ -23,7 +23,19 @@ const Table = ({ headers, data }) => {
               className={`border-b dark:border-neutral-500 text-center ${
                 index % 2 === 1 ? "bg-slate-100" : ""
               }`}>
-              {createTdFromObject(item, index, "status", ProjectStatus.free)}
+              {createTdFromObject(
+                item,
+                index,
+                "status",
+                ProjectStatus.free,
+                <Modal
+                  buttonContent={"اخذ پروژه"}
+                  header={ConfirmProjectModal?.header}
+                  content={ConfirmProjectModal?.content}
+                  acceptHandeler={handleModalAccept}
+                  id={item.id}
+                />
+              )}
             </tr>
           ))}
         </tbody>
