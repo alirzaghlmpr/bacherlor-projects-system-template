@@ -8,10 +8,22 @@ export default function Modal({
   buttonContent,
   header,
   content,
+  id = null,
+  capacity = null,
   buttonClassName = null,
   acceptHandeler = null,
-  id = null,
 }) {
+  const [participants, setParticipants] = useState(
+    Array.from({ length: capacity }, (_, key) => ({ key, text: "" }))
+  );
+
+  const handleChange = (e, id) =>
+    setParticipants(
+      participants.map((participant, index) =>
+        index === id ? { ...participant, text: e.target.value } : participant
+      )
+    );
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -41,6 +53,14 @@ export default function Modal({
           <p className="text-lg">{header}</p>
         </DialogTitle>
         <DialogContent>
+          {participants &&
+            participants.map(({ key }) => (
+              <input
+                key={key}
+                placeholder={`شماره دانشجویی همگروهی شماره ${key + 1}`}
+                onChange={(e) => handleChange(e, key)}
+                className="border-2 border-slate-600 rounded-lg w-[80%] my-1 p-1 text-sm"></input>
+            ))}
           <p id="alert-dialog-description" className="text-sm">
             {content}
           </p>
@@ -55,7 +75,7 @@ export default function Modal({
             className="text-sm px-2 py-1 text-white rounded-lg mx-3 bg-slate-500"
             onClick={() => {
               handleClose();
-              acceptHandeler(id || "");
+              acceptHandeler(id, participants);
             }}
             autoFocus>
             تایید

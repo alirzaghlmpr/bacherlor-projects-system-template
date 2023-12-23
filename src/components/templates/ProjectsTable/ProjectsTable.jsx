@@ -5,13 +5,19 @@ import NotifMessages from "../../../constants/NotifMessages";
 const ProjectsTable = ({ info }) => {
   const { headers, data } = info;
 
-  const handleModalAccept = (id) => {
+  const handleModalAccept = (id, participants) => {
     console.log(`modal triggered! , item id ${id}`);
+    console.log(participants);
 
-    sendNotif(
-      NotifMessages?.Project?.Success.text,
-      NotifMessages?.Project?.Success.type
-    );
+    participants.every((participant) => participant?.text != "")
+      ? sendNotif(
+          NotifMessages?.Project?.Success.text,
+          NotifMessages?.Project?.Success.type
+        )
+      : sendNotif(
+          NotifMessages?.Project?.Error.text,
+          NotifMessages?.Project?.Error.type
+        );
   };
 
   return (

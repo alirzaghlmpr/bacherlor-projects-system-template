@@ -34,6 +34,7 @@ const Table = ({ headers, data, handleModalAccept }) => {
                   content={ConfirmProjectModal?.content}
                   acceptHandeler={handleModalAccept}
                   id={item.id}
+                  capacity={item.capacity}
                 />
               )}
             </tr>
