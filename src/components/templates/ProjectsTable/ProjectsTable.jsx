@@ -15,8 +15,8 @@ const ProjectsTable = ({ info }) => {
           NotifMessages?.Project?.Success.type
         )
       : sendNotif(
-          NotifMessages?.Project?.Error.text,
-          NotifMessages?.Project?.Error.type
+          NotifMessages?.Project?.Error?.EmptyOrWrongSUID?.text,
+          NotifMessages?.Project?.Error?.EmptyOrWrongSUID?.type
         );
   };
 

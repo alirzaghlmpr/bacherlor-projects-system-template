@@ -3,7 +3,7 @@ import UserDashboard from "./routes/UserDashboard";
 import Requests from "./routes/Requests";
 
 const App = () => {
-  return <Requests />;
+  return <UserDashboard />;
 };
 
 export default App;

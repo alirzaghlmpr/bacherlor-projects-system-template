@@ -6,7 +6,13 @@ export const NotifMessages = Object.freeze({
   },
   Project: {
     Success: { text: "با موفقیت اخذ شد", type: NotifTypes.Success },
-    Error: { text: "درخواست اخذ با خطا مواجه شد", type: NotifTypes.Error },
+    Error: {
+      Default: { text: "درخواست اخذ با خطا مواجه شد", type: NotifTypes.Error },
+      EmptyOrWrongSUID: {
+        text: "شماره های دانشجویی وارد نشده یا اشتباه است",
+        type: NotifTypes.Error,
+      },
+    },
   },
 });
 

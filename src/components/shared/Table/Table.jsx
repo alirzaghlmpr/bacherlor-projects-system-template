@@ -28,14 +28,16 @@ const Table = ({ headers, data, handleModalAccept }) => {
                 index,
                 "status",
                 ProjectStatus.free,
-                <Modal
-                  buttonContent={"اخذ پروژه"}
-                  header={ConfirmProjectModal?.header}
-                  content={ConfirmProjectModal?.content}
-                  acceptHandeler={handleModalAccept}
-                  id={item.id}
-                  capacity={item.capacity}
-                />
+                handleModalAccept ? (
+                  <Modal
+                    buttonContent={"اخذ پروژه"}
+                    header={ConfirmProjectModal?.header}
+                    content={ConfirmProjectModal?.content}
+                    acceptHandeler={handleModalAccept}
+                    id={item.id}
+                    capacity={item.capacity}
+                  />
+                ) : null
               )}
             </tr>
           ))}
