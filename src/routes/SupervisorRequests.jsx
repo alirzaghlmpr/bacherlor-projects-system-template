@@ -1,26 +1,25 @@
 import Header from "../components/templates/Header";
-import StudentNavbar from "../constants/StudentNavbar";
 
 import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
 import Announcements from "../components/templates/Announcements";
 import RequestProjectTable from "../components/templates/RequestProjectTable/RequestProjectTable";
 import RequestedProjectsTableHeaders from "../constants/RequestedProjectsTableHeaders";
-import StudentMockRequestProjectInfo from "../mocks/StudentMockRequestProjectInfo";
+import SupervisorMockRequestProjectInfo from "../mocks/SupervisorMockRequestProjectInfo";
+import SupervisorNavbar from "../constants/SupervisorNavbar";
 
-const Requests = () => {
+const SupervisorRequests = () => {
   return (
     <>
-      <Header navbar={StudentNavbar} />
+      <Header navbar={SupervisorNavbar} />
       <Announcements projectInfo={StudentMockProjectInfo} />
       <RequestProjectTable
         info={{
           headers: RequestedProjectsTableHeaders,
-          data: StudentMockRequestProjectInfo,
+          data: SupervisorMockRequestProjectInfo,
         }}
-        requestable={false}
       />
     </>
   );
 };
 
-export default Requests;
+export default SupervisorRequests;

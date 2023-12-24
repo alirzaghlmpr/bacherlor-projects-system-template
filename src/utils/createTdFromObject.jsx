@@ -8,23 +8,24 @@ export const createTdFromObject = (
 ) => {
   let datas = [<td className={`${className} font-bold`}>{index + 1}</td>];
   for (const key in object)
-    if (key === speceficKey && object[key] === speceficValue)
-      datas.push(
-        <td className={className}>
-          {object[key] && (
-            <>
-              {object[key]}
-              <br />
-            </>
-          )}
-          <p
-            data-id={object?.id}
-            className="flex justify-center items-center gap-5 mt-2">
-            {speceficComponent}
-          </p>
-        </td>
-      );
-    else datas.push(<td className={className}>{object[key]}</td>);
+    if (!Array.isArray(object[key]))
+      if (key === speceficKey && object[key] === speceficValue)
+        datas.push(
+          <td className={className}>
+            {object[key] && (
+              <>
+                {object[key]}
+                <br />
+              </>
+            )}
+            <p
+              data-id={object?.id}
+              className="flex justify-center items-center gap-5 mt-2">
+              {speceficComponent}
+            </p>
+          </td>
+        );
+      else datas.push(<td className={className}>{object[key]}</td>);
 
   return datas;
 };
