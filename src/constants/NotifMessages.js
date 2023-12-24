@@ -5,6 +5,7 @@ export const NotifMessages = Object.freeze({
     Error: { text: "نام کاربری یا رمز عبور نامعتبر", type: NotifTypes.Error },
   },
   Project: {
+    SuccessAdd: { text: "باموفقیت اضافه شد.", type: NotifTypes.Success },
     Success: { text: "با موفقیت اخذ شد", type: NotifTypes.Success },
     Error: {
       Default: { text: "درخواست اخذ با خطا مواجه شد", type: NotifTypes.Error },
