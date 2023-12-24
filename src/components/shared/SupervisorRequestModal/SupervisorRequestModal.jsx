@@ -39,6 +39,11 @@ export default function SupervisorRequestModal({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
+          <button
+            className="text-xs px-2 pb-4 text-slate-500"
+            onClick={handleClose}>
+            بستن
+          </button>
           <p className="text-lg">{header}</p>
         </DialogTitle>
         <DialogContent>
@@ -60,11 +65,6 @@ export default function SupervisorRequestModal({
           </p>
         </DialogContent>
         <DialogActions>
-          <button
-            className="text-sm px-2 py-1 text-slate-500"
-            onClick={handleClose}>
-            بستن
-          </button>
           <button
             className="text-sm px-2 py-1 text-slate-500 rounded-lg  border-slate-500 border-2"
             onClick={() => {
