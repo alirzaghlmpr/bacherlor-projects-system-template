@@ -2,7 +2,7 @@ import Table from "../../shared/Table";
 import sendNotif from "../../../utils/sendNotif";
 import NotifMessages from "../../../constants/NotifMessages";
 
-const ProjectsTable = ({ info }) => {
+const ProjectsTable = ({ info, requestable = true }) => {
   const { headers, data } = info;
 
   const handleModalAccept = (id, participants) => {
@@ -24,7 +24,7 @@ const ProjectsTable = ({ info }) => {
     <Table
       headers={headers}
       data={data}
-      handleModalAccept={handleModalAccept}
+      handleModalAccept={requestable && handleModalAccept}
     />
   );
 };

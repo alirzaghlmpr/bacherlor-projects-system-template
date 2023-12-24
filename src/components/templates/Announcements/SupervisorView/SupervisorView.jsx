@@ -18,10 +18,12 @@ const SupervisorView = ({ projectsNotifCount }) => {
             <span className="font-normal">درخواست پروژه ای ندارید!</span>
           ) : (
             <>
-              <span className="font-medium mx-1 underline">
+              <span className="font-medium px-1 underline">
                 {projectsNotifCount}
               </span>
-              <span className="font-normal">درخواست پروژه دارید. </span>
+              <span className="font-normal">
+                درخواست پروژه درحال بررسی دارید.
+              </span>
             </>
           )}
         </p>
