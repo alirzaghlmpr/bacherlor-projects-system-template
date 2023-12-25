@@ -33,7 +33,9 @@ const AddProject = () => {
       status: PageStatus.Loading,
       data: { title: title, capacity: capacity },
     });
-    console.log(`title:${title} , capacity:${capacity}`);
+
+    const info = { title: title, capacity: capacity, suid: "suid supervisor" };
+    console.log(info);
   };
 
   const handleFormSubmit = async (e) => {

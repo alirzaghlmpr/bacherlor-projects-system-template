@@ -13,14 +13,14 @@ export default function Modal({
   buttonClassName = null,
   acceptHandeler = null,
 }) {
-  const [participants, setParticipants] = useState(
+  const [students, setParticipants] = useState(
     Array.from({ length: capacity }, (_, key) => ({ key, text: "" }))
   );
 
   const handleChange = (e, id) =>
     setParticipants(
-      participants.map((participant, index) =>
-        index === id ? { ...participant, text: e.target.value } : participant
+      students.map((student, index) =>
+        index === id ? { ...student, text: e.target.value } : student
       )
     );
 
@@ -53,8 +53,8 @@ export default function Modal({
           <p className="text-lg">{header}</p>
         </DialogTitle>
         <DialogContent>
-          {participants &&
-            participants.map(({ key }) => (
+          {students &&
+            students.map(({ key }) => (
               <input
                 key={key}
                 placeholder={`شماره دانشجویی همگروهی شماره ${key + 1}`}
@@ -75,7 +75,7 @@ export default function Modal({
             className="text-sm px-2 py-1 text-white rounded-lg mx-3 bg-slate-500"
             onClick={() => {
               handleClose();
-              acceptHandeler(id, participants);
+              acceptHandeler(id, students);
             }}
             autoFocus>
             تایید

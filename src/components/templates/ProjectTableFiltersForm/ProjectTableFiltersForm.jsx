@@ -5,6 +5,7 @@ import {
 import {
   ProjectsSelectOptions,
   SelectOptionName,
+  SelectDefaultOption,
 } from "../../../constants/ProjectsSelectOptions";
 import {
   NumberFilterName,
@@ -49,7 +50,7 @@ const ProjectTableFiltersForm = ({ submitHandeler }) => {
           <Select
             name={SelectOptionName}
             id={SelectOptionName}
-            selected="وضعیت پروژه"
+            selected={SelectDefaultOption}
             options={ProjectsSelectOptions}
           />
         </div>

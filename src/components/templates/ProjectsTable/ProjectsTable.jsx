@@ -5,11 +5,12 @@ import NotifMessages from "../../../constants/NotifMessages";
 const ProjectsTable = ({ info, requestable = true }) => {
   const { headers, data } = info;
 
-  const handleModalAccept = (id, participants) => {
-    console.log(`modal triggered! , item id ${id}`);
-    console.log(participants);
+  const handleModalAccept = (id, students) => {
+    const info = { id: id, students: students.map(({ text }) => text) };
 
-    participants.every((participant) => participant?.text != "")
+    console.log(info);
+
+    students.every((student) => student?.text != "")
       ? sendNotif(
           NotifMessages?.Project?.Success.text,
           NotifMessages?.Project?.Success.type

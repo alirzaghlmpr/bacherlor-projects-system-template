@@ -32,7 +32,8 @@ const LoginForm = () => {
       status: PageStatus.Loading,
       data: { username: username, password: password },
     });
-    console.log(`username:${username} , password:${password}`);
+    const info = { username: username, password: password };
+    console.log(info);
   };
 
   const handleFormSubmit = async (e) => {

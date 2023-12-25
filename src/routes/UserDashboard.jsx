@@ -5,7 +5,10 @@ import ProjectsTable from "../components/templates/ProjectsTable/ProjectsTable";
 import { RadiosFiltersName } from "../constants/FormRadioFilters";
 import { ProjectQueryFilter } from "../constants/ProjectsQueryFilter";
 import { NumberFilterName } from "../constants/ProjectsNumberFilter";
-import { SelectOptionName } from "../constants/ProjectsSelectOptions";
+import {
+  SelectOptionName,
+  SelectDefaultOption,
+} from "../constants/ProjectsSelectOptions";
 
 import ProjectTableFiltersForm from "../components/templates/ProjectTableFiltersForm";
 import Header from "../components/templates/Header";
@@ -23,7 +26,10 @@ const UserDashboard = () => {
     const type = formsElements[RadiosFiltersName]?.value;
     const query = formsElements[ProjectQueryFilter]?.value;
     const capacity = formsElements[NumberFilterName]?.value;
-    const status = formsElements[SelectOptionName]?.value;
+    const status =
+      formsElements[SelectOptionName]?.value === SelectDefaultOption
+        ? ""
+        : formsElements[SelectOptionName]?.value;
 
     console.log(
       `type:${type} , query:${query} , capacity:${capacity}, status:${status}`
