@@ -1,0 +1,9 @@
+route                          method      body                                        params
+
+/login                         post        {username:string,password:string}           -
+/projects                      get         -                                           type,query,capacity,status
+/projects                      post        {title:string,capacity:int,suid:string}     -
+/request-project               post        {id:string,students:array}
+/request-project/{sudd}        get         -
+/user-request                  put         {id:int,status:boolean}
+/supervisor-active-project/{suiid}     get    - -
