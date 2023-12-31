@@ -15,8 +15,16 @@ import PageStatus from "../../../constants/PageStatus";
 import NotifMessages from "../../../constants/NotifMessages";
 
 import LOGO from "../../../assets/images/university-logo.png";
+import useUserStore from "../../../store/useUserStore";
+import { shallow } from "zustand/shallow";
 
 const LoginForm = () => {
+  const { setUserInfo } = useUserStore(
+    (state) => ({
+      setUserInfo: state?.setUserInfo,
+    }),
+    shallow
+  );
   const [data, setData] = useState({ status: PageStatus.Init, data: null });
   const [inputErrors, setInputErrors] = useState({
     username: false,
@@ -24,16 +32,54 @@ const LoginForm = () => {
   });
 
   const requestLogin = async (username, password) => {
-    sendNotif(
-      NotifMessages.Login.Success.text,
-      NotifMessages.Login.Success.type
-    );
-    setData({
-      status: PageStatus.Loading,
+    setData((prev) => ({
+      ...prev,
       data: { username: username, password: password },
-    });
-    const info = { username: username, password: password };
-    console.log(info);
+    }));
+
+    if (
+      (username === "user" && password === "user") ||
+      (username === "supervisor" && password === "supervisor")
+    ) {
+      setData((prev) => ({
+        ...prev,
+        status: PageStatus.Loading,
+      }));
+
+      setTimeout(() => {
+        sendNotif(
+          NotifMessages.Login.Success.text,
+          NotifMessages.Login.Success.type
+        );
+        setData((prev) => ({
+          ...prev,
+          status: PageStatus.Fetched,
+        }));
+      }, 2000);
+
+      setUserInfo({
+        firstName: "علیرضا",
+        lastName: "غلامپور",
+        suid: "123456789",
+        token: "token",
+      });
+    } else {
+      setData((prev) => ({
+        ...prev,
+        status: PageStatus.Loading,
+      }));
+
+      setTimeout(() => {
+        sendNotif(
+          NotifMessages.Login.Error.text,
+          NotifMessages.Login.Error.type
+        );
+        setData((prev) => ({
+          ...prev,
+          status: PageStatus.Fetched,
+        }));
+      }, 2000);
+    }
   };
 
   const handleFormSubmit = async (e) => {

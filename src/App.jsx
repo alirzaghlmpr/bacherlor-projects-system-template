@@ -17,7 +17,7 @@ import {
 const queryClient = new QueryClient();
 
 const App = () => {
-  // const { firstName, lastName, suid, setUserInfo, resetUserInfo } =
+  // const { firstName, lastName, suid, setUserInfo, token, resetUserInfo } =
   //   useUserStore(
   //     (state) => ({
   //       firstName: state?.firstName,
@@ -25,13 +25,14 @@ const App = () => {
   //       suid: state?.suid,
   //       setUserInfo: state?.setUserInfo,
   //       resetUserInfo: state?.resetUserInfo,
+  //       token: state?.token,
   //     }),
   //     shallow
   //   );
   // return (
   //   <>
   //     <p>
-  //       {firstName}, {lastName} , {suid}
+  //       {firstName}, {lastName} , {suid},{token}
   //     </p>
   //     <button
   //       onClick={() =>
@@ -39,6 +40,7 @@ const App = () => {
   //           firstName: "ali",
   //           lastName: "gh",
   //           suid: "123465",
+  //           token: "token",
   //         })
   //       }>
   //       change
@@ -46,7 +48,7 @@ const App = () => {
   //     <button onClick={resetUserInfo}>reset</button>
   //   </>
   // );
-  return <AddProject />;
+  return <Root />;
 
   //   return (
   //     <QueryClientProvider client={queryClient}>

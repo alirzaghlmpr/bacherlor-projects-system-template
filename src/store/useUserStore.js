@@ -1,16 +1,18 @@
 import { create } from "zustand";
 
 export const useUserStore = create((set) => ({
-  firstName: "initial fname",
-  lastName: "initial lname",
-  suid: "initial suid",
-  setUserInfo: ({ firstName, lastName, suid }) =>
-    set({ firstName: firstName, lastName: lastName, suid: suid }),
+  firstName: null,
+  lastName: null,
+  suid: null,
+  token: null,
+  setUserInfo: ({ firstName, lastName, suid, token }) =>
+    set({ firstName: firstName, lastName: lastName, suid: suid, token: token }),
   resetUserInfo: () =>
     set({
-      firstName: "initial fname",
-      lastName: "initial lname",
-      suid: "initial suid",
+      firstName: null,
+      lastName: null,
+      suid: null,
+      token: null,
     }),
 }));
 
