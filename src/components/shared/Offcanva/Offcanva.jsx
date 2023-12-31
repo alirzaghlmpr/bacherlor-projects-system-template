@@ -11,6 +11,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListItem from "@mui/material/ListItem";
 
 import CloseIcon from "@mui/icons-material/Close";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -21,6 +23,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export const Offcanva = ({ menu }) => {
+  const { pathname } = useLocation();
+
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -54,13 +58,19 @@ export const Offcanva = ({ menu }) => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {menu.map(({ id, text }) => (
-            <ListItem sx={{ padding: "15px 15px 0 50px" }} key={id}>
+        <div className="flex flex-col gap-6 px-3 py-3">
+          {menu.map(({ id, text, to }) => (
+            <Link
+              className={`cursor-pointer py-1 px-3 ${
+                to === pathname ? "bg-slate-500 text-slate-50 rounded-lg" : ""
+              }`}
+              sx={{ padding: "15px 15px 0 50px" }}
+              to={to}
+              key={id}>
               {text}
-            </ListItem>
+            </Link>
           ))}
-        </List>
+        </div>
       </Drawer>
     </Box>
   );

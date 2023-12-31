@@ -50,6 +50,22 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/requests",
+    element: (
+      <AuthProvider>
+        <Requests />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/supervisorrequests",
+    element: (
+      <AuthProvider>
+        <SupervisorRequests />
+      </AuthProvider>
+    ),
+  },
+  {
     path: "/access-denied",
     element: <AccessDenied />,
   },
