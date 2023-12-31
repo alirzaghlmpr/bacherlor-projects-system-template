@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   LoginFormField,
@@ -17,14 +17,26 @@ import NotifMessages from "../../../constants/NotifMessages";
 import LOGO from "../../../assets/images/university-logo.png";
 import useUserStore from "../../../store/useUserStore";
 import { shallow } from "zustand/shallow";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
-  const { setUserInfo } = useUserStore(
+  const navigate = useNavigate();
+
+  const { setUserInfo, token, role } = useUserStore(
     (state) => ({
       setUserInfo: state?.setUserInfo,
+      token: state?.token,
+      role: state?.role,
     }),
     shallow
   );
+
+  useEffect(() => {
+    if (token) {
+      role === "student" ? navigate("/dashboard") : navigate("/panel");
+    }
+  }, [role]);
+
   const [data, setData] = useState({ status: PageStatus.Init, data: null });
   const [inputErrors, setInputErrors] = useState({
     username: false,
@@ -57,12 +69,23 @@ const LoginForm = () => {
         }));
       }, 2000);
 
-      setUserInfo({
-        firstName: "علیرضا",
-        lastName: "غلامپور",
-        suid: "123456789",
-        token: "token",
-      });
+      setTimeout(() => {
+        username === "user"
+          ? setUserInfo({
+              firstName: "علیرضا",
+              lastName: "غلامپور",
+              suid: "123456789",
+              token: "token",
+              role: "student",
+            })
+          : setUserInfo({
+              firstName: "علیرضا",
+              lastName: "غلامپور",
+              suid: "123456780",
+              token: "token",
+              role: "supervisor",
+            });
+      }, 3000);
     } else {
       setData((prev) => ({
         ...prev,
@@ -149,7 +172,7 @@ const LoginForm = () => {
             <span>
               {data.status === PageStatus.Loading ? "درحال ورود" : "ورود"}
             </span>
-            {data.status === PageStatus.Loading ? <Spinner size="20" /> : ""}
+            {data.status === PageStatus.Loading ? <Spinner size="20px" /> : ""}
           </button>
         </form>
       </div>

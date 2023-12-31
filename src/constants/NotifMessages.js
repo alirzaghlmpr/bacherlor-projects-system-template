@@ -1,6 +1,10 @@
 import NotifTypes from "./NotifTypes";
 export const NotifMessages = Object.freeze({
   Login: {
+    NoToken: {
+      text: "مدت احراز هویت شما به پایان رسیده",
+      type: NotifTypes.Warning,
+    },
     Success: { text: "با موفقیت وارد شدید", type: NotifTypes.Success },
     Error: { text: "نام کاربری یا رمز عبور نامعتبر", type: NotifTypes.Error },
   },

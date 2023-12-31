@@ -1,12 +1,25 @@
+import { useEffect } from "react";
+import NotifMessages from "../../../constants/NotifMessages";
 import useUserStore from "../../../store/useUserStore";
 import sendNotif from "../../../utils/sendNotif";
+import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
-  const { token } = useUserStore((state) => ({
+  const navigate = useNavigate();
+  const { token, role } = useUserStore((state) => ({
     token: state?.token,
   }));
-  if (!token) sendNotif("توکن ست نشده", "error");
-  if (token) sendNotif("توکن ست شد", "success");
+
+  useEffect(() => {
+    if (!token) {
+      sendNotif(
+        NotifMessages.Login.NoToken.text,
+        NotifMessages.Login.NoToken.type
+      );
+      navigate("/login");
+    }
+  }, []);
+
   return <>{children}</>;
 };
 

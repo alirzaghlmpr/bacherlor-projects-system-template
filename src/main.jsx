@@ -9,23 +9,49 @@ import UserDashboard from "./routes/UserDashboard";
 import Requests from "./routes/Requests";
 import SupervisorDashboard from "./routes/SupervisorDashboard";
 import SupervisorRequests from "./routes/SupervisorRequests";
-
+import LoginForm from "./components/templates/LoginForm/LoginForm.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/login",
+    element: <LoginForm />,
   },
   {
     path: "/addproject",
-    element: <AddProject />,
+    element: (
+      <AuthProvider>
+        <AddProject />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/panel",
+    element: (
+      <AuthProvider>
+        <SupervisorDashboard />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AuthProvider>
+        <UserDashboard />
+      </AuthProvider>
+    ),
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
