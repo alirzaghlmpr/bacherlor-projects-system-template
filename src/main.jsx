@@ -10,6 +10,7 @@ import Requests from "./routes/Requests";
 import SupervisorDashboard from "./routes/SupervisorDashboard";
 import SupervisorRequests from "./routes/SupervisorRequests";
 import LoginForm from "./components/templates/LoginForm/LoginForm.jsx";
+import AccessDenied from "./components/templates/AccessDenied/AccessDenied.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
         <UserDashboard />
       </AuthProvider>
     ),
+  },
+  {
+    path: "/access-denied",
+    element: <AccessDenied />,
   },
 ]);
 

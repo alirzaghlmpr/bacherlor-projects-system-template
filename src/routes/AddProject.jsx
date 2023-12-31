@@ -17,7 +17,24 @@ import {
 } from "../constants/AddProjectFormFields";
 import Spinner from "../components/shared/Spinner";
 
+import { useNavigate } from "react-router";
+import useUserStore from "../store/useUserStore";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
+
 const AddProject = () => {
+  const navigate = useNavigate();
+  const { role } = useUserStore(
+    (state) => ({
+      role: state?.role,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    role !== "supervisor" && navigate("/access-denied");
+  }, []);
+
   const [data, setData] = useState({ status: PageStatus.Init, data: null });
   const [inputErrors, setInputErrors] = useState({
     title: false,

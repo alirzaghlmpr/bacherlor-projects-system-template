@@ -19,7 +19,26 @@ import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
 import Announcements from "../components/templates/Announcements";
 import Modal from "../components/shared/Modal";
 import ConfirmProjectModal from "../constants/ConfirmProjectModal";
+import AccessDenied from "../components/templates/AccessDenied";
+
+import useUserStore from "../store/useUserStore";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 const UserDashboard = () => {
+  const navigate = useNavigate();
+  const { role } = useUserStore(
+    (state) => ({
+      role: state?.role,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    role !== "student" && navigate("/access-denied");
+  }, []);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     let formsElements = e.target?.elements;

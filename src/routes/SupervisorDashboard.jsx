@@ -17,8 +17,24 @@ import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
 import Announcements from "../components/templates/Announcements";
 import Modal from "../components/shared/Modal";
 import ConfirmProjectModal from "../constants/ConfirmProjectModal";
+import { useNavigate } from "react-router";
+import useUserStore from "../store/useUserStore";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
 
 const SupervisorDashboard = () => {
+  const navigate = useNavigate();
+  const { role } = useUserStore(
+    (state) => ({
+      role: state?.role,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    role !== "supervisor" && navigate("/access-denied");
+  }, []);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     let formsElements = e.target?.elements;

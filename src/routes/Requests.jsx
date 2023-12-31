@@ -7,7 +7,23 @@ import RequestProjectTable from "../components/templates/RequestProjectTable/Req
 import RequestedProjectsTableHeaders from "../constants/RequestedProjectsTableHeaders";
 import StudentMockRequestProjectInfo from "../mocks/StudentMockRequestProjectInfo";
 
+import useUserStore from "../store/useUserStore";
+import { shallow } from "zustand/shallow";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 const Requests = () => {
+  const navigate = useNavigate();
+  const { role } = useUserStore(
+    (state) => ({
+      role: state?.role,
+    }),
+    shallow
+  );
+
+  useEffect(() => {
+    role !== "student" && navigate("/access-denied");
+  }, []);
   return (
     <>
       <Header navbar={StudentNavbar} />
