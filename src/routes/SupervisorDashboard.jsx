@@ -21,8 +21,12 @@ import { useNavigate } from "react-router";
 import useUserStore from "../store/useUserStore";
 import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import serializeFormQuery from "../utils/serializeFormQuery";
 
 const SupervisorDashboard = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
   const { role } = useUserStore(
     (state) => ({
@@ -37,18 +41,9 @@ const SupervisorDashboard = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    let formsElements = e.target?.elements;
-    const type = formsElements[RadiosFiltersName]?.value;
-    const query = formsElements[ProjectQueryFilter]?.value;
-    const capacity = formsElements[NumberFilterName]?.value;
-    const status =
-      formsElements[SelectOptionName]?.value === SelectDefaultOption
-        ? ""
-        : formsElements[SelectOptionName]?.value;
 
-    console.log(
-      `type:${type} , query:${query} , capacity:${capacity}, status:${status}`
-    );
+    let params = serializeFormQuery(e.target);
+    setSearchParams(params);
   };
   return (
     <>

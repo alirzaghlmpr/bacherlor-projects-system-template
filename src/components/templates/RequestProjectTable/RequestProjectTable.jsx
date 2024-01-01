@@ -1,3 +1,5 @@
+import NotifMessages from "../../../constants/NotifMessages";
+import sendNotif from "../../../utils/sendNotif";
 import SupervisorRequestsTable from "../../shared/SupervisorRequestsTable/SupervisorRequestsTable";
 
 const RequestProjectTable = ({ info, requestable = true }) => {
@@ -6,7 +8,10 @@ const RequestProjectTable = ({ info, requestable = true }) => {
   const handleModalAccept = (id, status) => {
     const info = { id: id, status: status };
 
-    console.log(info);
+    sendNotif(
+      NotifMessages.Project.ChangeStatus.text,
+      NotifMessages.Project.ChangeStatus.type
+    );
   };
 
   return (

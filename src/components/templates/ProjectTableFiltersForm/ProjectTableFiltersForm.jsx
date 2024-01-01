@@ -24,8 +24,11 @@ import Number from "../../../components/shared/Number/Number";
 
 import Search from "../../../assets/icons/search.svg";
 import Cross from "../../../assets/icons/cross.png";
+import { useSearchParams } from "react-router-dom";
 
 const ProjectTableFiltersForm = ({ submitHandeler }) => {
+  let [_, setSearchParams] = useSearchParams();
+
   return (
     <form
       onSubmit={submitHandeler}
@@ -78,7 +81,8 @@ const ProjectTableFiltersForm = ({ submitHandeler }) => {
         </button>
         <button
           className="text-sm p-1 rounded-lg border-2 border-slate-500"
-          type="reset">
+          type="reset"
+          onClick={() => setSearchParams("")}>
           <img src={Cross} width="22" alt="" />
         </button>
       </div>

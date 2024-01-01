@@ -42,17 +42,22 @@ const AddProject = () => {
   });
 
   const requestAddProject = async (title, capacity) => {
-    sendNotif(
-      NotifMessages?.Project?.SuccessAdd?.text,
-      NotifMessages?.Project?.SuccessAdd?.type
-    );
-    setData({
+    setData((prev) => ({
+      ...prev,
       status: PageStatus.Loading,
-      data: { title: title, capacity: capacity },
-    });
+    }));
 
-    const info = { title: title, capacity: capacity, suid: "suid supervisor" };
-    console.log(info);
+    setTimeout(() => {
+      sendNotif(
+        NotifMessages?.Project?.SuccessAdd?.text,
+        NotifMessages?.Project?.SuccessAdd?.type
+      );
+
+      setData({
+        status: PageStatus.Fetched,
+        data: { title: title, capacity: capacity },
+      });
+    }, 2000);
   };
 
   const handleFormSubmit = async (e) => {

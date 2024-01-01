@@ -8,8 +8,6 @@ const ProjectsTable = ({ info, requestable = true }) => {
   const handleModalAccept = (id, students) => {
     const info = { id: id, students: students.map(({ text }) => text) };
 
-    console.log(info);
-
     students.every((student) => student?.text != "")
       ? sendNotif(
           NotifMessages?.Project?.Success.text,
