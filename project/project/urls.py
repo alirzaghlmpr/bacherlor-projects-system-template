@@ -17,12 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
+from users.views import UserLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('users.urls')),
+    path('login/', csrf_exempt(UserLoginView.as_view()), name='login'),
 ]
+
 
 
 # baseurl : karshenasiproject.liara.iran.run/api

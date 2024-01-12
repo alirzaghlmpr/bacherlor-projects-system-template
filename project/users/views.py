@@ -2,7 +2,7 @@
 # from django.http import JsonResponse
 # from django.contrib.auth import authenticate, login
 # from django.views.decorators.csrf import csrf_exempt
-# from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,30 +10,128 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from .serializers import UserLoginSerializer
 from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from .serializers import UserLoginSerializer 
+from .models import karbar
+import logging
 
 def home(request):
     return HttpResponse("Welcome to the home page!")
 
+logger = logging.getLogger(__name__)
+
+from django.contrib.auth import authenticate, login
+from rest_framework.authtoken.models import Token
+
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
-
+    authentication_classes = []
+    
     def post(self, request):
-        serializer = UserLoginSerializer(data=request.data)
+        serializer = UserLoginSerializer(data=request.data, context={'request': request})
+
         if serializer.is_valid():
             username = serializer.validated_data['username']
             password = serializer.validated_data['password']
+            user = authenticate(request=self.request, username=username, password=password)
 
-            user = authenticate(request, username=username, password=password)
-
-            if user is not None:
+            if user and isinstance(user, karbar):
                 login(request, user)
+
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key}, status=status.HTTP_200_OK)
+
+                return Response({
+                    'token': token.key,
+                    'user_sid': user.sid,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'is_professor': user.is_professor,
+                }, status=status.HTTP_200_OK)
             else:
-                return Response({'error': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
+                print(f"Failed login attempt with username: {username}")
+                return Response({'non_field_errors': ['Invalid username or password :D']}, status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class UserLoginView(APIView):
+#     permission_classes = [AllowAny]
+#     authentication_classes = []
+    
+#     def post(self, request):
+#         serializer = UserLoginSerializer(data=request.data, context={'request': request})
+
+#         if serializer.is_valid():
+#             user = authenticate(
+#                 request=self.request,
+#                 username=serializer.validated_data['username'],
+#                 password=serializer.validated_data['password']
+#             )
+
+#             if user and isinstance(user, karbar):
+#                 login(request, user)
+#                 token, created = Token.objects.get_or_create(user=user)
+#                 return Response({
+#                     'token': token.key,
+#                     'user_sid': user.sid,
+#                     'first_name': user.first_name,
+#                     'last_name': user.last_name,
+#                     'is_professor': user.is_professor,
+#                 }, status=status.HTTP_200_OK)
+#             else:
+#                 print(f"Failed login attempt with username: {serializer.validated_data['username']}")
+#                 return Response({'non_field_errors': ['Invalid username or password :D']}, status=status.HTTP_401_UNAUTHORIZED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class UserLoginView(APIView):
+#     permission_classes = [AllowAny]
+#     authentication_classes = []
+    
+#     def post(self, request):
+#         serializer = UserLoginSerializer(data=request.data, context={'request': request})
+
+#         if serializer.is_valid():
+#             username = serializer.validated_data['username']
+#             password = serializer.validated_data['password']
+
+#             user = authenticate(request, username=username, password=password)
+
+#             if user is not None and isinstance(user, karbar):
+#                 login(request, user)
+#                 token, created = Token.objects.get_or_create(user=user)
+#                 return Response({'token': token.key, 'user_sid': user.sid,
+#                                   'first_name' : user.first_name, 
+#                                   'last_name' : user.last_name, 
+#                                   'is_professor?' : user.is_professor,}, status=status.HTTP_200_OK)
+#             else:
+#                 print(f"Failed login attempt with username: {username}")
+#                 return Response({'non_field_errors': ['Invalid username or password :D']}, status=status.HTTP_401_UNAUTHORIZED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class UserLoginView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         serializer = UserLoginSerializer(data=request.data)
+#         if serializer.is_valid():
+#             username = serializer.validated_data['username']
+#             password = serializer.validated_data['password']
+
+#             user = authenticate(request, username=username, password=password)
+
+#             if user is not None:
+#                 login(request, user)
+#                 token, created = Token.objects.get_or_create(user=user)
+#                 return Response({'token': token.key}, status=status.HTTP_200_OK)
+#             else:
+#                 return Response({'error': 'Invalid username or password'}, status=status.HTTP_401_UNAUTHORIZED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     #def get(self , requset):
             #return Response({"msg" : "hello"})
