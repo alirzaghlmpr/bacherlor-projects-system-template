@@ -24,22 +24,27 @@ logger = logging.getLogger(__name__)
 from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 
+from datetime import datetime, timedelta
+
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = []
-    
+
     def post(self, request):
         serializer = UserLoginSerializer(data=request.data, context={'request': request})
 
         if serializer.is_valid():
-            username = serializer.validated_data['username']
-            password = serializer.validated_data['password']
-            user = authenticate(request=self.request, username=username, password=password)
+            user = authenticate(
+                request=self.request,
+                username=serializer.validated_data['username'],
+                password=serializer.validated_data['password']
+            )
 
             if user and isinstance(user, karbar):
                 login(request, user)
-
                 token, created = Token.objects.get_or_create(user=user)
+
+                expiration_date = datetime.now() + timedelta(days=3)
 
                 return Response({
                     'token': token.key,
@@ -47,9 +52,10 @@ class UserLoginView(APIView):
                     'first_name': user.first_name,
                     'last_name': user.last_name,
                     'is_professor': user.is_professor,
+                    'token_expires_at': expiration_date.isoformat(),
                 }, status=status.HTTP_200_OK)
             else:
-                print(f"Failed login attempt with username: {username}")
+                print(f"Failed login attempt with username: {serializer.validated_data['username']}")
                 return Response({'non_field_errors': ['Invalid username or password :D']}, status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
