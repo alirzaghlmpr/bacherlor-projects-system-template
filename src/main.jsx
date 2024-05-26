@@ -11,6 +11,8 @@ import SupervisorDashboard from "./routes/SupervisorDashboard";
 import SupervisorRequests from "./routes/SupervisorRequests";
 import LoginForm from "./components/templates/LoginForm/LoginForm.jsx";
 import AccessDenied from "./components/templates/AccessDenied/AccessDenied.jsx";
+import Thesises from "./routes/Thesises.jsx";
+import UploadThesises from "./routes/UploadThesises.jsx";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +64,22 @@ const router = createBrowserRouter([
     element: (
       <AuthProvider>
         <SupervisorRequests />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/supervisorthesises",
+    element: (
+      <AuthProvider>
+        <Thesises />
+      </AuthProvider>
+    ),
+  },
+  {
+    path: "/uploadthesises",
+    element: (
+      <AuthProvider>
+        <UploadThesises />
       </AuthProvider>
     ),
   },
