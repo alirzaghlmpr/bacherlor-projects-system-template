@@ -21,9 +21,9 @@ const Requests = () => {
     shallow
   );
 
-  useEffect(() => {
-    role !== "student" && navigate("/access-denied");
-  }, []);
+  // useEffect(() => {
+  //   role !== "student" && navigate("/access-denied");
+  // }, []);
   return (
     <>
       <Header navbar={StudentNavbar} />

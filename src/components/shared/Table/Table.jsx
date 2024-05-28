@@ -26,7 +26,7 @@ const Table = ({ headers, data, handleModalAccept }) => {
               {createTdFromObject(
                 item,
                 index,
-                "status",
+                "is_available",
                 ProjectStatus.free,
                 handleModalAccept ? (
                   <Modal

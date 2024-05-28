@@ -31,11 +31,11 @@ const LoginForm = () => {
     shallow
   );
 
-  useEffect(() => {
-    if (token) {
-      role === "student" ? navigate("/dashboard") : navigate("/panel");
-    }
-  }, [role]);
+  // useEffect(() => {
+  //   if (token) {
+  //     role === "student" ? navigate("/dashboard") : navigate("/panel");
+  //   }
+  // }, [role]);
 
   const [data, setData] = useState({ status: PageStatus.Init, data: null });
   const [inputErrors, setInputErrors] = useState({

@@ -31,9 +31,9 @@ const AddProject = () => {
     shallow
   );
 
-  useEffect(() => {
-    role !== "supervisor" && navigate("/access-denied");
-  }, []);
+  // useEffect(() => {
+  //   role !== "supervisor" && navigate("/access-denied");
+  // }, []);
 
   const [data, setData] = useState({ status: PageStatus.Init, data: null });
   const [inputErrors, setInputErrors] = useState({

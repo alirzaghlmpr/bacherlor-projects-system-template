@@ -21,9 +21,9 @@ const SupervisorRequests = () => {
     shallow
   );
 
-  useEffect(() => {
-    role !== "supervisor" && navigate("/access-denied");
-  }, []);
+  // useEffect(() => {
+  //   role !== "supervisor" && navigate("/access-denied");
+  // }, []);
 
   return (
     <>

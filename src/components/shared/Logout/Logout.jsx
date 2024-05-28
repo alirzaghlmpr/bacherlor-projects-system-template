@@ -17,9 +17,9 @@ const Logout = () => {
     shallow
   );
 
-  useEffect(() => {
-    !token && navigate("/");
-  }, [token]);
+  // useEffect(() => {
+  //   !token && navigate("/");
+  // }, [token]);
 
   const handleLogout = () => {
     resetUserInfo();

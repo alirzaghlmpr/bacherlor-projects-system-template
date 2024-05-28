@@ -23,9 +23,19 @@ import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import serializeFormQuery from "../utils/serializeFormQuery";
+import useSWR from "swr";
+import { getProjects } from "../apis";
+import Spinner from "../components/shared/Spinner";
+import ProjectStatus from "../constants/ProjectStatus";
 
 const SupervisorDashboard = () => {
   let [searchParams, setSearchParams] = useSearchParams();
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const { data, error, isLoading } = useSWR(
+    `${getProjects()}?${searchParams.toString()}`,
+    fetcher
+  );
 
   const navigate = useNavigate();
   const { role } = useUserStore(
@@ -35,9 +45,9 @@ const SupervisorDashboard = () => {
     shallow
   );
 
-  useEffect(() => {
-    role !== "supervisor" && navigate("/access-denied");
-  }, []);
+  // useEffect(() => {
+  //   role !== "supervisor" && navigate("/access-denied");
+  // }, []);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -50,15 +60,42 @@ const SupervisorDashboard = () => {
       <Header navbar={SupervisorNavbar} />
       <Announcements projectsNotifCount="1" />
       <ProjectTableFiltersForm submitHandeler={handleFormSubmit} />
-      <ProjectsTable
-        info={{ headers: ProjectsTableHeaders, data: TableMockData }}
-        requestable={false}
-      />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+
+      {data && (
+        <>
+          {data.length == 0 ? (
+            <p className="text-center font-bold py-5 my-5">
+              پروژه ای با این مشخصات یافت نشد!
+            </p>
+          ) : (
+            <ProjectsTable
+              info={{
+                headers: ProjectsTableHeaders,
+                data: data.map(
+                  ({
+                    title,
+                    professor_name,
+                    is_available,
+                    id,
+                    max_students,
+                  }) => ({
+                    title: title,
+                    professor_name: professor_name,
+                    capacity: max_students,
+                    is_available: is_available
+                      ? ProjectStatus.free
+                      : ProjectStatus.full,
+                    id: id,
+                  })
+                ),
+              }}
+              requestable={false}
+            />
+          )}
+        </>
+      )}
+      {isLoading && <Spinner size="75" color="#000" />}
+      {error && <p>خطایی رخ داده ، مجددا تلاش کنید</p>}
     </>
   );
 };
