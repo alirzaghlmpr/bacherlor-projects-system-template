@@ -9,20 +9,16 @@ import { useEffect } from "react";
 
 const Logout = () => {
   const navigate = useNavigate();
-  const { token, resetUserInfo } = useUserStore(
-    (state) => ({
-      token: state?.token,
-      resetUserInfo: state?.resetUserInfo,
-    }),
-    shallow
-  );
-
-  // useEffect(() => {
-  //   !token && navigate("/");
-  // }, [token]);
+  const { resetUserInfo, localStorageKey } = useUserStore((state) => ({
+    resetUserInfo: state?.resetUserInfo,
+    localStorageKey: state?.localStorageKey,
+  }));
 
   const handleLogout = () => {
     resetUserInfo();
+    localStorage.removeItem(localStorageKey);
+    navigate("/login");
+    
   };
   return (
     <Modal

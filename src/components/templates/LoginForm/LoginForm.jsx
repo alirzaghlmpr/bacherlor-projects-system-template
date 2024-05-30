@@ -59,6 +59,12 @@ const LoginForm = () => {
         NotifMessages.Login.Success.text,
         NotifMessages.Login.Success.type
       );
+
+      setTimeout(() => {
+        userCredential?.role === "student"
+          ? navigate("/dashboard")
+          : navigate("/panel");
+      }, 2000);
     } catch (e) {
       sendNotif(e?.response?.data?.message, NotifMessages.Login.Error.type);
     }

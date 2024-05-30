@@ -8,22 +8,31 @@ import RequestedProjectsTableHeaders from "../constants/RequestedProjectsTableHe
 import StudentMockRequestProjectInfo from "../mocks/StudentMockRequestProjectInfo";
 
 import useUserStore from "../store/useUserStore";
-import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import sendNotif from "../utils/sendNotif";
+import NotifMessages from "../constants/NotifMessages";
 
 const Requests = () => {
   const navigate = useNavigate();
-  const { role } = useUserStore(
-    (state) => ({
-      role: state?.role,
-    }),
-    shallow
-  );
+  const { localStorageKey } = useUserStore((state) => ({
+    localStorageKey: state?.localStorageKey,
+  }));
 
-  // useEffect(() => {
-  //   role !== "student" && navigate("/access-denied");
-  // }, []);
+  useEffect(() => {
+    const localStorageData = localStorage.getItem(localStorageKey);
+    if (localStorageData) {
+      const { role } = JSON.parse(localStorageData);
+      console.log(role);
+      role !== "student" && navigate("/access-denied");
+    } else {
+      navigate("/login");
+      sendNotif(
+        NotifMessages.Login.NoToken.text,
+        NotifMessages.Login.NoToken.type
+      );
+    }
+  }, []);
   return (
     <>
       <Header navbar={StudentNavbar} />

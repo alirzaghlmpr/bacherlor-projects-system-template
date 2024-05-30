@@ -31,6 +31,8 @@ import useSWR from "swr";
 import { getProjects } from "../apis";
 import Spinner from "../components/shared/Spinner";
 import ProjectStatus from "../constants/ProjectStatus";
+import NotifMessages from "../constants/NotifMessages";
+import sendNotif from "../utils/sendNotif";
 
 const UserDashboard = () => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -43,16 +45,24 @@ const UserDashboard = () => {
 
   const navigate = useNavigate();
 
-  const { role } = useUserStore(
-    (state) => ({
-      role: state?.role,
-    }),
-    shallow
-  );
+  const { localStorageKey } = useUserStore((state) => ({
+    localStorageKey: state?.localStorageKey,
+  }));
 
-  // useEffect(() => {
-  //   role !== "student" && navigate("/access-denied");
-  // }, []);
+  useEffect(() => {
+    const localStorageData = localStorage.getItem(localStorageKey);
+    if (localStorageData) {
+      const { role } = JSON.parse(localStorageData);
+      console.log(role);
+      role !== "student" && navigate("/access-denied");
+    } else {
+      navigate("/login");
+      sendNotif(
+        NotifMessages.Login.NoToken.text,
+        NotifMessages.Login.NoToken.type
+      );
+    }
+  }, []);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

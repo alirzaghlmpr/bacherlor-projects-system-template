@@ -16,18 +16,30 @@ import SupervisorNavbar from "../constants/SupervisorNavbar";
 
 import SupervisorRequestModal from "../components/shared/SupervisorRequestModal/SupervisorRequestModal";
 import { Link } from "react-router-dom";
+import sendNotif from "../utils/sendNotif";
+import NotifMessages from "../constants/NotifMessages";
+
 const UploadThesises = () => {
   const navigate = useNavigate();
-  // const { role } = useUserStore(
-  //   (state) => ({
-  //     role: state?.role,
-  //   }),
-  //   shallow
-  // );
+  const { localStorageKey } = useUserStore((state) => ({
+    localStorageKey: state?.localStorageKey,
+  }));
 
-  // useEffect(() => {
-  //   role !== "supervisor" && navigate("/access-denied");
-  // }, []);
+  useEffect(() => {
+    const localStorageData = localStorage.getItem(localStorageKey);
+    if (localStorageData) {
+      const { role } = JSON.parse(localStorageData);
+      console.log(role);
+      role !== "student" && navigate("/access-denied");
+    } else {
+      navigate("/login");
+      sendNotif(
+        NotifMessages.Login.NoToken.text,
+        NotifMessages.Login.NoToken.type
+      );
+    }
+  }, []);
+
   const handleFormSubmit = () => {};
   return (
     <>
