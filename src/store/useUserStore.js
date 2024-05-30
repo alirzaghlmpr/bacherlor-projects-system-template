@@ -6,6 +6,7 @@ export const useUserStore = create((set) => ({
   suid: null,
   token: null,
   role: null,
+  localStorageKey: "user_state",
   setUserInfo: ({ firstName, lastName, suid, token, role }) =>
     set({
       firstName: firstName,
@@ -13,6 +14,7 @@ export const useUserStore = create((set) => ({
       suid: suid,
       token: token,
       role: role,
+      localStorageKey: "user_state",
     }),
   resetUserInfo: () =>
     set({

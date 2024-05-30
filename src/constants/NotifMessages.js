@@ -5,7 +5,10 @@ export const NotifMessages = Object.freeze({
       text: "مدت احراز هویت شما به پایان رسیده",
       type: NotifTypes.Warning,
     },
-    Success: { text: "با موفقیت وارد شدید", type: NotifTypes.Success },
+    Success: {
+      text: "با موفقیت وارد شدید ، درحال انتقال...",
+      type: NotifTypes.Success,
+    },
     Error: { text: "نام کاربری یا رمز عبور نامعتبر", type: NotifTypes.Error },
   },
   Project: {

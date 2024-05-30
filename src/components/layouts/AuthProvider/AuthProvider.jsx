@@ -1,24 +1,16 @@
 import { useEffect } from "react";
-import NotifMessages from "../../../constants/NotifMessages";
 import useUserStore from "../../../store/useUserStore";
-import sendNotif from "../../../utils/sendNotif";
-import { useNavigate } from "react-router-dom";
 
 const AuthProvider = ({ children }) => {
-  // const navigate = useNavigate();
-  // const { token, role } = useUserStore((state) => ({
-  //   token: state?.token,
-  // }));
+  const { localStorageKey, setUserInfo } = useUserStore((state) => ({
+    localStorageKey: state?.localStorageKey,
+    setUserInfo: state?.setUserInfo,
+  }));
 
-  // useEffect(() => {
-  //   if (!token) {
-  //     sendNotif(
-  //       NotifMessages.Login.NoToken.text,
-  //       NotifMessages.Login.NoToken.type
-  //     );
-  //     navigate("/login");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const localStorageData = localStorage.getItem(localStorageKey);
+    localStorageData && setUserInfo(JSON.parse(localStorageData));
+  }, []);
 
   return <>{children}</>;
 };

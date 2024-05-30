@@ -17,11 +17,7 @@ import UploadThesises from "./routes/UploadThesises.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    ),
+    element: <App />,
   },
   {
     path: "/login",
@@ -29,59 +25,31 @@ const router = createBrowserRouter([
   },
   {
     path: "/addproject",
-    element: (
-      <AuthProvider>
-        <AddProject />
-      </AuthProvider>
-    ),
+    element: <AddProject />,
   },
   {
     path: "/panel",
-    element: (
-      <AuthProvider>
-        <SupervisorDashboard />
-      </AuthProvider>
-    ),
+    element: <SupervisorDashboard />,
   },
   {
     path: "/dashboard",
-    element: (
-      <AuthProvider>
-        <UserDashboard />
-      </AuthProvider>
-    ),
+    element: <UserDashboard />,
   },
   {
     path: "/requests",
-    element: (
-      <AuthProvider>
-        <Requests />
-      </AuthProvider>
-    ),
+    element: <Requests />,
   },
   {
     path: "/supervisorrequests",
-    element: (
-      <AuthProvider>
-        <SupervisorRequests />
-      </AuthProvider>
-    ),
+    element: <SupervisorRequests />,
   },
   {
     path: "/supervisorthesises",
-    element: (
-      <AuthProvider>
-        <Thesises />
-      </AuthProvider>
-    ),
+    element: <Thesises />,
   },
   {
     path: "/uploadthesises",
-    element: (
-      <AuthProvider>
-        <UploadThesises />
-      </AuthProvider>
-    ),
+    element: <UploadThesises />,
   },
   {
     path: "/access-denied",
@@ -91,6 +59,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

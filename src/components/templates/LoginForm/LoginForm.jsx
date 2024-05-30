@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   LoginFormField,
@@ -11,97 +11,56 @@ import checkEmptyOrNull from "../../../utils/checkEmptyOrNull";
 import LoginLayout from "../../layouts/LoginLayout";
 import Spinner from "../../shared/Spinner";
 
-import PageStatus from "../../../constants/PageStatus";
 import NotifMessages from "../../../constants/NotifMessages";
 
 import LOGO from "../../../assets/images/university-logo.png";
 import useUserStore from "../../../store/useUserStore";
-import { shallow } from "zustand/shallow";
 import { useNavigate } from "react-router";
+import useSWRMutation from "swr/mutation";
+import { login } from "../../../apis";
+import axios from "axios";
 
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const { setUserInfo, token, role } = useUserStore(
-    (state) => ({
-      setUserInfo: state?.setUserInfo,
-      token: state?.token,
-      role: state?.role,
-    }),
-    shallow
-  );
+  const sendRequest = async (url, { arg }) => axios.post(url, arg);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     role === "student" ? navigate("/dashboard") : navigate("/panel");
-  //   }
-  // }, [role]);
+  const { trigger, isMutating } = useSWRMutation(login(), sendRequest);
 
-  const [data, setData] = useState({ status: PageStatus.Init, data: null });
+  const { setUserInfo, localStorageKey } = useUserStore((state) => ({
+    setUserInfo: state?.setUserInfo,
+    localStorageKey: state?.localStorageKey,
+  }));
+
   const [inputErrors, setInputErrors] = useState({
     username: false,
     password: false,
   });
 
   const requestLogin = async (username, password) => {
-    setData((prev) => ({
-      ...prev,
-      data: { username: username, password: password },
-    }));
+    try {
+      const { data: result } = await trigger({
+        username: username,
+        password: password,
+      });
 
-    if (
-      (username === "user" && password === "user") ||
-      (username === "supervisor" && password === "supervisor")
-    ) {
-      setData((prev) => ({
-        ...prev,
-        status: PageStatus.Loading,
-      }));
+      let userCredential = {
+        firstName: result?.user?.first_name,
+        lastName: result?.user?.last_name,
+        suid: result?.user?.suid,
+        token: result?.token,
+        role: result?.role,
+      };
 
-      setTimeout(() => {
-        sendNotif(
-          NotifMessages.Login.Success.text,
-          NotifMessages.Login.Success.type
-        );
-        setData((prev) => ({
-          ...prev,
-          status: PageStatus.Fetched,
-        }));
-      }, 2000);
+      setUserInfo(userCredential);
+      localStorage.setItem(localStorageKey, JSON.stringify(userCredential));
 
-      setTimeout(() => {
-        username === "user"
-          ? setUserInfo({
-              firstName: "علیرضا",
-              lastName: "غلامپور",
-              suid: "123456789",
-              token: "token",
-              role: "student",
-            })
-          : setUserInfo({
-              firstName: "علیرضا",
-              lastName: "غلامپور",
-              suid: "123456780",
-              token: "token",
-              role: "supervisor",
-            });
-      }, 3000);
-    } else {
-      setData((prev) => ({
-        ...prev,
-        status: PageStatus.Loading,
-      }));
-
-      setTimeout(() => {
-        sendNotif(
-          NotifMessages.Login.Error.text,
-          NotifMessages.Login.Error.type
-        );
-        setData((prev) => ({
-          ...prev,
-          status: PageStatus.Fetched,
-        }));
-      }, 2000);
+      sendNotif(
+        NotifMessages.Login.Success.text,
+        NotifMessages.Login.Success.type
+      );
+    } catch (e) {
+      sendNotif(e?.response?.data?.message, NotifMessages.Login.Error.type);
     }
   };
 
@@ -167,12 +126,11 @@ const LoginForm = () => {
           ))}
 
           <button
+            disabled={isMutating}
             type="submit"
             className={`bg-slate-50 border-none outline-none rounded-lg items-center flex justify-center w-[100%] p-2 gap-2 text-sm`}>
-            <span>
-              {data.status === PageStatus.Loading ? "درحال ورود" : "ورود"}
-            </span>
-            {data.status === PageStatus.Loading ? <Spinner size="20px" /> : ""}
+            <span>{isMutating ? "درحال ورود" : "ورود"}</span>
+            {isMutating ? <Spinner size="20px" /> : ""}
           </button>
         </form>
       </div>
