@@ -40,7 +40,7 @@ const SupervisorDashboard = () => {
   );
 
   const navigate = useNavigate();
-  const { localStorageKey } = useUserStore((state) => ({
+  const { localStorageKey, token } = useUserStore((state) => ({
     localStorageKey: state?.localStorageKey,
   }));
 
@@ -85,7 +85,7 @@ const SupervisorDashboard = () => {
                     title,
                     professor_name,
                     is_available,
-                    id,
+                    project_id,
                     max_students,
                   }) => ({
                     title: title,
@@ -94,7 +94,7 @@ const SupervisorDashboard = () => {
                     is_available: is_available
                       ? ProjectStatus.free
                       : ProjectStatus.full,
-                    id: id,
+                    id: project_id,
                   })
                 ),
               }}
