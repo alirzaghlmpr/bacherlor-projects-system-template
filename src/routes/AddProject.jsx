@@ -83,7 +83,6 @@ const AddProject = () => {
   return (
     <>
       <Header navbar={SupervisorNavbar} />
-      <Announcements projectsNotifCount="1" />
       <form
         autoComplete="on"
         onSubmit={handleFormSubmit}

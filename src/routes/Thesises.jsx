@@ -34,7 +34,6 @@ const Thesises = () => {
   return (
     <>
       <Header navbar={SupervisorNavbar} />
-      <Announcements projectsNotifCount={"2"} />
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm font-light">
           <thead className="border-b dark:border-neutral-500 font-bold text-slate-50 bg-slate-500">

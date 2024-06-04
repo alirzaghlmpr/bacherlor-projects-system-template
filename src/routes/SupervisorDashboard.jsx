@@ -67,7 +67,6 @@ const SupervisorDashboard = () => {
   return (
     <>
       <Header navbar={SupervisorNavbar} />
-      <Announcements projectsNotifCount="1" />
       <ProjectTableFiltersForm submitHandeler={handleFormSubmit} />
 
       {data && (

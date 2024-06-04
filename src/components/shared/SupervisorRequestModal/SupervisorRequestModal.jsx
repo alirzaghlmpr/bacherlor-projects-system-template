@@ -69,7 +69,7 @@ export default function SupervisorRequestModal({
             className="text-sm px-2 py-1 text-slate-500 rounded-lg  border-slate-500 border-2"
             onClick={() => {
               handleClose();
-              changeHandeler(id, false);
+              changeHandeler(id, false, participants);
             }}>
             رد درخواست
           </button>
@@ -77,7 +77,7 @@ export default function SupervisorRequestModal({
             className="text-sm px-2 py-1 text-white rounded-lg mx-3 bg-slate-500"
             onClick={() => {
               handleClose();
-              changeHandeler(id, true);
+              changeHandeler(id, true, participants);
             }}
             autoFocus>
             تایید درخواست

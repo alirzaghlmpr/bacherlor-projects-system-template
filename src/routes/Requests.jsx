@@ -21,12 +21,14 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { DateObject } from "react-multi-date-picker";
 import ProjectRequestStatus from "../constants/ProjectRequestStatus";
+import SupervisorActiveProjects from "../components/templates/SupervisorActiveProjects";
 
 const Requests = () => {
   const navigate = useNavigate();
 
   const [pageStatus, setPageStatus] = useState(PageStatus.Init);
   const [data, setData] = useState(null);
+  const [activeProjects, setActiveProjects] = useState(null);
 
   const { localStorageKey } = useUserStore((state) => ({
     localStorageKey: state?.localStorageKey,
@@ -43,6 +45,20 @@ const Requests = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPageStatus(PageStatus.Fetched);
+        //students -> id,name
+        //project -> professor_name , title , is_available
+        let allProjects =
+          r?.data.length == 0
+            ? null
+            : r.data.map(({ students, project }) => ({
+                title: project.title,
+                participants: students.map(({ id, name }) => ({
+                  suid: id,
+                  name: name,
+                })),
+                status: project?.is_available,
+              }));
+        setActiveProjects(allProjects.filter(({ status }) => !status));
         setData(
           r?.data.length == 0
             ? null
@@ -75,7 +91,6 @@ const Requests = () => {
     const localStorageData = localStorage.getItem(localStorageKey);
     if (localStorageData) {
       const { role, token } = JSON.parse(localStorageData);
-      console.log(role);
       role !== "student" && navigate("/access-denied");
       getData(token);
     } else {
@@ -90,7 +105,6 @@ const Requests = () => {
   return (
     <>
       <Header navbar={StudentNavbar} />
-      <Announcements projectInfo={null} text="شما پروژه ای اخذ نکرده اید" />
       {pageStatus === PageStatus.Loading && (
         <Spinner text="درحال بارگزاری..." size="75" color="#000" />
       )}
@@ -105,23 +119,29 @@ const Requests = () => {
           </span>
         </p>
       )}
-      {data ? (
-        <RequestProjectTable
-          info={{
-            headers: RequestedProjectsTableHeaders,
-            data: data,
-          }}
-          requestable={false}
-        />
-      ) : (
-        <p className="flex flex-col items-center justify-center my-5">
-          <span>درخواستی وجود ندارد</span>
-          <span
-            onClick={() => navigate("/dashboard")}
-            className="underline cursor-pointer">
-            ثبت درخواست
-          </span>
-        </p>
+
+      <div className="my-10"></div>
+
+      {data && (
+        <>
+          {activeProjects && activeProjects.length > 0 ? (
+            <SupervisorActiveProjects projects={activeProjects} />
+          ) : (
+            <p className="flex p-3 flex-col my-5 text-sm">
+              پروژه فعالی برای شما وجود ندارد
+            </p>
+          )}
+          <RequestProjectTable
+            info={{
+              headers: RequestedProjectsTableHeaders,
+              data: data,
+            }}
+            requestable={false}
+          />
+        </>
+      )}
+      {pageStatus === PageStatus.Fetched && !data && (
+        <p className="font-bold text-center my-5">درخواستی وجود ندارد</p>
       )}
     </>
   );
