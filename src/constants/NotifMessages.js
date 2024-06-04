@@ -13,7 +13,14 @@ export const NotifMessages = Object.freeze({
   },
   Project: {
     ChangeStatus: { text: "با موفقیت تغییر یافت", type: NotifTypes.Success },
-    SuccessAdd: { text: "باموفقیت اضافه شد.", type: NotifTypes.Success },
+    SuccessAdd: {
+      text: "باموفقیت اضافه شد ، درحال رفرش صفحه...",
+      type: NotifTypes.Success,
+    },
+    FailedAdd: {
+      text: "خطایی رخ داد دوباره تلاش کنید ، درحال رفرش صفحه...",
+      type: NotifTypes.Error,
+    },
     Success: { text: "درخواست با موفقیت ارسال شد", type: NotifTypes.Success },
     Error: {
       Default: { text: "درخواست اخذ با خطا مواجه شد", type: NotifTypes.Error },

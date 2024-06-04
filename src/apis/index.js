@@ -6,3 +6,5 @@ export const claimProject = (id) => `${baseurl()}/claim-project/${id}/`;
 export const getStudentRequests = () => `${baseurl()}/student-dashboard/`;
 export const getProfessorRequests = () => `${baseurl()}/professor-dashboard/`;
 export const changeClaimStatus = () => `${baseurl()}/approve-claim/`;
+export const createProject = () => `${baseurl()}/create-project/`;
+export const getProfessorProjects = () => `${baseurl()}/professor-dashboard/`;
