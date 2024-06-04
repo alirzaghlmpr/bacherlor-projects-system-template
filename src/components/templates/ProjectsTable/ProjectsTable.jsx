@@ -32,7 +32,7 @@ const ProjectsTable = ({ info, requestable = true }) => {
       const result = await axios.post(
         claimProject(id),
         {
-          students_id: students.map(({ text }) => text),
+          student_ids: students.map(({ text }) => text),
         },
         {
           headers: {

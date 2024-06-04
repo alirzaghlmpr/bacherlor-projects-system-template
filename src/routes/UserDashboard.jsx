@@ -74,7 +74,7 @@ const UserDashboard = () => {
   return (
     <>
       <Header navbar={StudentNavbar} />
-      <Announcements projectInfo={StudentMockProjectInfo} />
+      <Announcements projectInfo={null} text="شما پروژه ای اخذ نکرده اید" />
       <ProjectTableFiltersForm submitHandeler={handleFormSubmit} />
       {data && (
         <>

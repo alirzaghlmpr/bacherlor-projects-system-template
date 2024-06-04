@@ -44,7 +44,7 @@ const UploadThesises = () => {
   return (
     <>
       <Header navbar={StudentNavbar} />
-      <Announcements projectInfo={StudentMockProjectInfo} />
+      <Announcements projectInfo={null} text="شما پروژه ای اخذ نکرده اید" />
       <form
         autoComplete="on"
         onSubmit={handleFormSubmit}
