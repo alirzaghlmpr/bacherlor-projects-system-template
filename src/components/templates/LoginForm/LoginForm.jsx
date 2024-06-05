@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   LoginFormField,
@@ -31,6 +31,15 @@ const LoginForm = () => {
     setUserInfo: state?.setUserInfo,
     localStorageKey: state?.localStorageKey,
   }));
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem(localStorageKey);
+    if (localStorageData) {
+      const { role } = JSON.parse(localStorageData);
+      role == "student" && navigate("/dashboard");
+      role == "professor" && navigate("/panel");
+    }
+  }, []);
 
   const [inputErrors, setInputErrors] = useState({
     username: false,

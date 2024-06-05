@@ -30,6 +30,21 @@ export const NotifMessages = Object.freeze({
       },
     },
   },
+
+  Thesis: {
+    BadFormat: {
+      text: "مجاز به اپلود فایل با پسوند doc, docx , pdf هستید",
+      type: NotifTypes.Error,
+    },
+    Fail: {
+      text: "خطایی رخ داد دوباره تلاش کنید ، درحال رفرش صفحه...",
+      type: NotifTypes.Error,
+    },
+    Success: {
+      text: "با موفقیت اپلود شد.ردحال رفرش صفحه...",
+      type: NotifTypes.Success,
+    },
+  },
 });
 
 export default NotifMessages;
