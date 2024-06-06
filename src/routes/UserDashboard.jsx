@@ -1,28 +1,13 @@
 import ProjectsTableHeaders from "../constants/ProjectsTableHeaders";
-import TableMockData from "../mocks/TableMockData";
 import ProjectsTable from "../components/templates/ProjectsTable/ProjectsTable";
 
-import { RadiosFiltersName } from "../constants/FormRadioFilters";
-import { ProjectQueryFilter } from "../constants/ProjectsQueryFilter";
-import { NumberFilterName } from "../constants/ProjectsNumberFilter";
-import {
-  SelectOptionName,
-  SelectDefaultOption,
-} from "../constants/ProjectsSelectOptions";
 
 import ProjectTableFiltersForm from "../components/templates/ProjectTableFiltersForm";
 import Header from "../components/templates/Header";
-import SupervisorNavbar from "../constants/SupervisorNavbar";
 import StudentNavbar from "../constants/StudentNavbar";
 
-import StudentMockProjectInfo from "../mocks/StudentMockProjectInfo";
-import Announcements from "../components/templates/Announcements";
-import Modal from "../components/shared/Modal";
-import ConfirmProjectModal from "../constants/ConfirmProjectModal";
-import AccessDenied from "../components/templates/AccessDenied";
 
 import useUserStore from "../store/useUserStore";
-import { shallow } from "zustand/shallow";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
@@ -85,6 +70,7 @@ const UserDashboard = () => {
           ) : (
             <ProjectsTable
               info={{
+                modalInput: true,
                 headers: ProjectsTableHeaders,
                 data: data.map(
                   ({

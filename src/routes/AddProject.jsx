@@ -5,8 +5,6 @@ import ProjectsTable from "../components/templates/ProjectsTable/ProjectsTable";
 import Header from "../components/templates/Header";
 import SupervisorNavbar from "../constants/SupervisorNavbar";
 
-import Announcements from "../components/templates/Announcements";
-import SuperVisorProjectsMockInfo from "../mocks/SuperVisorProjectsMockInfo";
 import PageStatus from "../constants/PageStatus";
 import sendNotif from "../utils/sendNotif";
 import NotifMessages from "../constants/NotifMessages";

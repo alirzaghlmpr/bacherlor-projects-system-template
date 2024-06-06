@@ -9,3 +9,4 @@ export const changeClaimStatus = () => `${baseurl()}/approve-claim/`;
 export const createProject = () => `${baseurl()}/create-project/`;
 export const getProfessorProjects = () => `${baseurl()}/professor-dashboard/`;
 export const uploadThesis = (id) => `${baseurl()}/upload-file/${id}/`;
+export const completedProjects = () => `${baseurl()}/completed-projects/`;

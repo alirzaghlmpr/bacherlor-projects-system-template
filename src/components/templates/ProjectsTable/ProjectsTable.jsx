@@ -8,7 +8,7 @@ import PageStatus from "../../../constants/PageStatus";
 import Spinner from "../../shared/Spinner";
 import useUserStore from "../../../store/useUserStore";
 
-const ProjectsTable = ({ info, requestable = true }) => {
+const ProjectsTable = ({ info, requestable = true, modalInput = true }) => {
   const { token } = useUserStore((state) => ({
     token: state?.token,
   }));
@@ -82,6 +82,7 @@ const ProjectsTable = ({ info, requestable = true }) => {
           headers={headers}
           data={data}
           handleModalAccept={requestable && handleModalAccept}
+          modalInput={modalInput}
         />
       )}
     </>

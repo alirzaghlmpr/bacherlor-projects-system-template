@@ -13,6 +13,8 @@ import LoginForm from "./components/templates/LoginForm/LoginForm.jsx";
 import AccessDenied from "./components/templates/AccessDenied/AccessDenied.jsx";
 import Thesises from "./routes/Thesises.jsx";
 import UploadThesises from "./routes/UploadThesises.jsx";
+import CompletedProjectsSt from "./routes/CompletedProjectsSt.jsx";
+import CompletedProjectsPr from "./routes/CompletedProjectsPr.jsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
   {
     path: "/access-denied",
     element: <AccessDenied />,
+  },
+  {
+    path: "/completed-projects-st",
+    element: <CompletedProjectsSt />,
+  },
+  {
+    path: "/completed-projects-pr",
+    element: <CompletedProjectsPr />,
   },
 ]);
 

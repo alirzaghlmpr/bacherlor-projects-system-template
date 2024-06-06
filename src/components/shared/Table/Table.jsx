@@ -3,7 +3,7 @@ import TableLayout from "../../layouts/TableLayout/TableLayout";
 import Modal from "../Modal";
 import ProjectStatus from "../../../constants/ProjectStatus";
 import ConfirmProjectModal from "../../../constants/ConfirmProjectModal";
-const Table = ({ headers, data, handleModalAccept }) => {
+const Table = ({ headers, data, handleModalAccept, modalInput }) => {
   return (
     <TableLayout>
       <table className="min-w-full text-sm font-light">
@@ -36,6 +36,7 @@ const Table = ({ headers, data, handleModalAccept }) => {
                     acceptHandeler={handleModalAccept}
                     id={item.id}
                     capacity={item.capacity}
+                    modalInput={modalInput}
                   />
                 ) : null
               )}

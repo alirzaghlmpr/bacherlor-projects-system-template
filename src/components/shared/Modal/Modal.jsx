@@ -3,18 +3,29 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import useUserStore from "../../../store/useUserStore";
 
 export default function Modal({
   buttonContent,
   header,
   content,
+  modalInput,
   id = null,
   capacity = null,
   buttonClassName = null,
   acceptHandeler = null,
 }) {
+  const { suid } = useUserStore((state) => ({
+    suid: state?.suid,
+  }));
+
   const [students, setParticipants] = useState(
-    Array.from({ length: capacity }, (_, key) => ({ key, text: "" }))
+    Array.from({ length: capacity }, (_, key) => ({
+      key,
+      text: "",
+      value: null,
+      disable: false,
+    }))
   );
 
   const handleChange = (e, id) =>
@@ -28,6 +39,9 @@ export default function Modal({
 
   const handleClickOpen = () => {
     setOpen(true);
+    const temp = [...students];
+    temp[0] = { key: 0, text: suid, value: suid, disable: true };
+    setParticipants(temp);
   };
 
   const handleClose = () => {
@@ -53,9 +67,12 @@ export default function Modal({
           <p className="text-lg">{header}</p>
         </DialogTitle>
         <DialogContent>
-          {students &&
-            students.map(({ key }) => (
+          {modalInput &&
+            students &&
+            students.map(({ key, value, disable }) => (
               <input
+                disabled={disable}
+                value={value}
                 key={key}
                 placeholder={`شماره دانشجویی همگروهی شماره ${key + 1}`}
                 onChange={(e) => handleChange(e, key)}

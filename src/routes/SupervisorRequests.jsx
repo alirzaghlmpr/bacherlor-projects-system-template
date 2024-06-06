@@ -1,12 +1,9 @@
 import Header from "../components/templates/Header";
 
-import Announcements from "../components/templates/Announcements";
 import RequestProjectTable from "../components/templates/RequestProjectTable/RequestProjectTable";
 import RequestedProjectsTableHeaders from "../constants/RequestedProjectsTableHeaders";
-import SupervisorMockRequestProjectInfo from "../mocks/SupervisorMockRequestProjectInfo";
 import SupervisorNavbar from "../constants/SupervisorNavbar";
 import SupervisorActiveProjects from "../components/templates/SupervisorActiveProjects";
-import SupervisorActiveProjectsData from "../constants/SupervisorActiveProjectsData";
 import { useNavigate } from "react-router";
 import useUserStore from "../store/useUserStore";
 import { useEffect, useState } from "react";
@@ -50,7 +47,6 @@ const SupervisorRequests = () => {
 
           result.data.forEach((item) => {
             const { claims } = item;
-            console.log(claims);
             if (claims.length !== 0) {
               let formattedData = claims.map(
                 ({ students, project, created_at }) => ({
@@ -75,13 +71,13 @@ const SupervisorRequests = () => {
               if (formattedData) {
                 if (formattedData[0].status == ProjectRequestStatus.accepted)
                   activeProjects.push(formattedData[0]);
-                datas.push(formattedData[0]);
+                formattedData.map((d) => datas.push(d));
+                setData(datas);
               }
             }
           });
 
           setData(datas);
-
           setActiveProjects(activeProjects);
         }
       } catch (e) {
